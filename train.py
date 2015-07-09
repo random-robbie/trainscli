@@ -4,7 +4,7 @@ import requests
 
 
 #table = 'livedepartureresults'
-url= 'http://www.northernrail.org/travel/livedepartures/BNY'
+url= 'http://ojp.nationalrail.co.uk/service/ldbboard/dep/WKI?j=0'
 r = requests.get(url)
 res =  r.text
 f = open("cache.txt","w")
@@ -13,7 +13,7 @@ f.close()
 
 
 soup = BeautifulSoup(res)
-table = soup.find('table', attrs={'class':'livedepartureresults'})
+table = soup.find('table', attrs={'cellpadding':'0s'})
 tableHead = table.find_all('th')
 head = []
 
@@ -28,7 +28,7 @@ for row in rows:
     cols = row.find_all('td')
     for index,value in enumerate(cols):
         try:
-            print head[index] + ": " + value.string
+            print head[index] + ": " + value.string.strip()
         except:
             pass
     print "\n"
