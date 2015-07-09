@@ -12,7 +12,7 @@ f.writelines(res)
 f.close()
 
 
-soup = BeautifulSoup(res)
+soup = BeautifulSoup(res, 'html.parser')
 table = soup.find('table', attrs={'cellpadding':'0s'})
 tableHead = table.find_all('th')
 head = []
