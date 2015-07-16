@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-
+import json
 
 
 #table = 'livedepartureresults'
@@ -13,7 +13,7 @@ f.close()
 
 
 soup = BeautifulSoup(res, 'html.parser')
-table = soup.find('table', attrs={'cellpadding':'0s'})
+table = soup.find('table', attrs={'cellpadding':'0'})
 tableHead = table.find_all('th')
 head = []
 
@@ -28,7 +28,10 @@ for row in rows:
     cols = row.find_all('td')
     for index,value in enumerate(cols):
         try:
-            print head[index] + ": " + value.string.strip()
+			info = head[index] + ": " + value.string.strip()
+			with open("trains.json", "w") as writeJSON:
+				json.dump(info, writeJSON)
+				print head[index] + ": " + value.string.strip()
         except:
             pass
     print "\n"
